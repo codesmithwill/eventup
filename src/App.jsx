@@ -1,11 +1,15 @@
+import { Routes, Route } from "react-router-dom"
 import Login from './pages/Login'
-import './App.css'
+import Register from './pages/Register'
+import Home from './pages/Home'
+import './styles/App.css'
 
-function App() {
-
+export default function App() {
   return (
-    <Login/>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+    </Routes>
   )
 }
-
-export default App
