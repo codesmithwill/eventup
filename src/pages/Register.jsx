@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import app from '../services/firebase';
 import logo from '../imgs/logo_nbg.png'
-import Footer from '../components/Footer';
-import HeroSection from '../components/HeroSection';
+import Footer from '../components/layout/Footer';
+import HeroSection from '../components/layout/HeroSection';
 import { Link } from 'react-router-dom';
 
 import { IoIosEyeOff } from "react-icons/io";
