@@ -1,10 +1,10 @@
 import { useAuth } from "../hooks/useAuth";
 import { Navigate } from "react-router-dom";
-import { getAuth, signOut } from "firebase/auth";
-import app from "../services/firebase";
+
 import logo from '../imgs/logo_nbg.png'
 import profile from '../imgs/profile.jpg'
 import Loading from "../components/ui/Loading";
+import Button from "../components/ui/Button";
 
 import { 
     LuMoon, 
@@ -27,14 +27,6 @@ import {
 export default function Home() {
     const { user, loading } = useAuth();
 
-    const handleLogout = async () => {
-        try {
-            const auth = getAuth(app);
-            await signOut(auth);
-        } catch (error) {
-            console.error("Erro ao fazer logout:", error);
-        }
-    };
 
     if (loading) return <Loading/>;
     if (!user) return <Navigate to="/login" />;
@@ -141,7 +133,9 @@ export default function Home() {
                         </div>
                     </section>
 
-                    <section></section>
+                    <section>
+<Button/>
+                    </section>
                     <section></section>
                 </div>
 

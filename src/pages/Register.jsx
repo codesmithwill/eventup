@@ -42,19 +42,19 @@ export default function Register() {
     };
 
     return (
-        <div className="flex h-lvh w-dvw min-h-screen">
+        <div className="flex w-full min-h-screen">
             <HeroSection />
 
-            <div className="flex flex-col justify-center items-center bg-gradient-to-t from-slate-50 via-[#88bbe4] to-slate-50 w-dvw gap-20 lg:bg-none lg:bg-white">
-                <img src={logo} alt="Logo EventUp" width={250} height={250}/>
+            <div className="flex flex-col justify-center items-center bg-gradient-to-t from-slate-50 via-[#88bbe4] to-slate-50 w-dvw gap-20 lg:bg-none lg:bg-white px-6">
+                <img src={logo} alt="Logo EventUp" width={200} height={250}/>
 
 
-                <div className='flex justify-center'>
-                    <form onSubmit={handleSubmit} className='flex flex-col gap-7'>
+                <div className='flex justify-center w-full'>
+                    <form onSubmit={handleSubmit} className='flex flex-col gap-7 w-full max-w-md'>
                         <div>
                             <label htmlFor="username"></label>
                             <input
-                            className='border border-[#2E8FE0] w-100 rounded-4xl p-2 placeholder-black focus:outline-none'
+                            className='border border-[#2E8FE0] w-full rounded-4xl p-2 placeholder-black focus:outline-none'
                             type="text"
                             id="username"
                             value={username}
@@ -64,10 +64,10 @@ export default function Register() {
                             />
                         </div>
 
-                        <div>
+                        <div className='relative'>
                             <label htmlFor="email"></label>
                             <input
-                            className='border border-[#2E8FE0] w-100 rounded-4xl p-2 placeholder-black focus:outline-none'
+                            className='border border-[#2E8FE0] w-full rounded-4xl p-2 placeholder-black focus:outline-none'
                             type="email"
                             id="email"
                             value={email}
@@ -80,7 +80,7 @@ export default function Register() {
                         <div>
                             <label htmlFor="birthDate"></label>
                             <input
-                            className='border border-[#2E8FE0] w-100 rounded-4xl p-2 placeholder-black focus:outline-none'
+                            className='border border-[#2E8FE0] w-full rounded-4xl p-2 placeholder-black focus:outline-none'
                             type="date"
                             id="birthDate"
                             value={birthDate}
@@ -92,7 +92,7 @@ export default function Register() {
                         <div className='relative'>
                             <label htmlFor="password"></label>
                             <input
-                            className={`border w-100 rounded-4xl p-2 placeholder-black focus:outline-none pr-12 ${
+                            className={`border w-full rounded-4xl p-2 placeholder-black focus:outline-none pr-12 ${
                                 password.length > 0 && password.length < 6 ? 'border-red-500' : 'border-[#2E8FE0]'
                             }`}
                             type={showPassword ? "text" : "password"}
