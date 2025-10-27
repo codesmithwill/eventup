@@ -48,8 +48,11 @@ export default function Home() {
             </nav>
 
             <main className="flex-grow bg-[#2E8FE0]/5 scroll-auto">
-                <div className="flex flex-col m-8 gap-5">
+                <div className="grid md:grid-cols-2 gap-8 m-10 grid-cols-1">
                     <section className="flex flex-col">
+                        <div className="bg-[#2E8FE0]/17 rounded-3xl p-10 hidden sm:block">
+                            <button className="bg-[#2E8FE0]/53 w-full rounded-4xl p-5 text-3xl font-bold text-white">Criar um evento</button>
+                        </div>
                         <div className="flex items-center gap-2">
                             <LuTrendingUp size={40}/>
                             <h1 className="font-bold text-2xl">Eventos em destaque</h1>
@@ -133,10 +136,49 @@ export default function Home() {
                         </div>
                     </section>
 
-                    <section>
-<Button/>
+                    <section className="flex flex-col">
+                        <div className="flex items-center gap-2">
+                            <LuTrendingUp size={40}/>
+                            <h1 className="font-bold text-2xl">Meus Eventos</h1>
+                        </div>
+                        <div className="bg-white p-3 rounded-2xl flex flex-col">
+                            <div className="flex bg-[#F6F6F6] rounded-2xl p-2">
+                                <div className="flex flex-col">
+                                    <h1 className="font-bold">Festa em casa</h1>
+                                    <p>01 de setembro de 2025</p>
+                                </div>
+
+                            <ul className="flex items-middle justify-between">
+                                <li className="flex flex-col items-center gap-2">
+                                    <a href="" className="flex flex-col items-center justify-center  bg-white rounded-full shadow-md hover:bg-gray-400 transition ease-in-out">
+                                        <LuPlus size={30}/>
+                                    </a>
+                                    <p className="text-sm">Desconfirmar</p>
+                                </li>
+
+                                <li className="flex flex-col items-center gap-2">
+                                    <a href="" className="flex flex-col items-center justify-center  bg-white rounded-full shadow-md hover:bg-gray-400 transition ease-in-out">
+                                        <LuCalendarFold size={30} className=""/>
+                                    </a>
+                                    <p className="text-sm">Chat</p>
+                                </li>
+
+                                <li className="flex flex-col items-center gap-2">
+                                    <a href="" className="flex flex-col items-center justify-center  bg-white rounded-full shadow-md hover:bg-gray-400 transition ease-in-out">
+                                        <LuStar size={30} fill="black" className=""/>
+                                    </a>
+                                    <p className="text-sm">Informações</p>
+                                </li>
+                            </ul>
+                            </div>
+                        </div>
                     </section>
-                    <section></section>
+
+
+
+                    <section>
+                        <Button/>
+                    </section>
                 </div>
 
             </main>
