@@ -21,7 +21,11 @@ import {
     LuCalendarFold,
     LuStar,
     LuSettings,
-    LuPlus
+    LuPlus,
+    LuCircleUser,
+    LuCircleX,
+    LuMessageSquare,
+    LuInfo
 } from "react-icons/lu";
 
 export default function Home() {
@@ -33,26 +37,83 @@ export default function Home() {
 
     return (
         <div className="flex flex-col w-full min-h-screen overflow-x-hidden">
-            <nav className="flex items-center w-full border-b-6 border-[#2E8FE0] h-25 justify-between px-4">
-                <img src={logo} width={75} alt="logo eventup" className="" />
-                <div className="relative flex items-center">
-                    <LuSearch className="absolute left-3"/>
-                    <input 
-                    type="search" 
-                    placeholder= 'Buscar eventos...'
-                    className="pl-8 border border-[#2E8FE0] bg-[#2E8FE0]/7 rounded-full w-60 sm:w-80 h-10 placeholder:text-black focus:bg-[#2E8FE0]/10 focus:border-[#2E8FE0] focus:outline-none transition ease-in-out duration-300"/>
+            <nav className="flex items-center w-full border-b-6 border-[#2E8FE0] h-25 justify-between px-10 order-0">
+                <div className="flex gap-5">
+                    <img src={logo} width={75} alt="logo eventup" className="" />
+                    <div className="relative flex items-center">
+                        <LuSearch className="absolute left-3"/>
+                        <input 
+                        type="search" 
+                        placeholder= 'Buscar eventos...'
+                        className="pl-8 border border-[#2E8FE0] bg-[#2E8FE0]/7 rounded-full w-60 sm:w-150 h-10 placeholder:text-black focus:bg-[#2E8FE0]/10 focus:border-[#2E8FE0] focus:outline-none transition ease-in-out duration-300"/>
+                    </div>
                 </div>
-                <button className="hover:cursor-pointer">
-                    <LuMoon size={30}/>
-                </button>
+
+                <div className="hidden sm:flex gap-5">
+                    <button className="hover:cursor-pointer">
+                        <LuMoon size={40}/>
+                    </button>
+                    <button className="hover:cursor-pointer">
+                        <LuCalendarDays size={40}/>
+                    </button>
+                    <button className="hover:cursor-pointer">
+                        <LuBell size={40}/>
+                    </button>
+                    <button className="hover:cursor-pointer">
+                        <LuCircleUser size={40}/>
+                    </button>
+                </div>
             </nav>
 
-            <main className="flex-grow bg-[#2E8FE0]/5 scroll-auto">
+            <main className="flex-grow bg-[#2E8FE0]/5 scroll-auto md:p-5 ">
                 <div className="grid md:grid-cols-2 gap-8 m-10 grid-cols-1">
-                    <section className="flex flex-col">
-                        <div className="bg-[#2E8FE0]/17 rounded-3xl p-10 hidden sm:block">
-                            <button className="bg-[#2E8FE0]/53 w-full rounded-4xl p-5 text-3xl font-bold text-white">Criar um evento</button>
+                    <section className="flex-col hidden sm:block">
+                        <div className="bg-[#2E8FE0]/17 rounded-3xl p-10">
+                            <button className="bg-[#2E8FE0]/53 w-full rounded-4xl p-5 text-3xl font-bold text-white hover:cursor-pointer hover:bg-[#2E8FE0]/100">Criar um evento</button>
                         </div>
+                    </section>
+
+                    <section className="flex flex-col gap-5 order-3 sm:order-2 md:order-1">
+                        <div className="flex items-center gap-2">
+                            <LuEarth size={40}/>
+                            <h1 className="font-bold text-2xl">Atalhos</h1>
+                        </div>
+
+                        <div className="">
+                            <ul className="flex items-middle justify-between">
+                                <li className="flex flex-col items-center gap-2">
+                                    <a href="" className="flex flex-col items-center justify-center  bg-white rounded-2xl w-15 h-15 shadow-md hover:bg-gray-400 transition ease-in-out">
+                                        <LuPlus size={50}/>
+                                    </a>
+                                    <p className="text-sm">Criar evento</p>
+                                </li>
+
+                                <li className="flex flex-col items-center gap-2">
+                                    <a href="" className="flex flex-col items-center justify-center bg-white rounded-2xl w-15 h-15 shadow-md hover:bg-gray-400 transition ease-in-out">
+                                        <LuCalendarFold size={50} className=""/>
+                                    </a>
+                                    <p className="text-sm">Próximos</p>
+                                </li>
+
+                                <li className="flex flex-col items-center gap-2">
+                                    <a href="" className="flex flex-col items-center justify-center bg-white rounded-2xl w-15 h-15 shadow-md hover:bg-gray-400 transition ease-in-out">
+                                        <LuStar size={50} fill="black" className=""/>
+                                    </a>
+                                    <p className="text-sm">Dicas</p>
+                                </li>
+                                
+                                <li className="flex flex-col items-center gap-2">
+                                    <a href="" className="flex flex-col items-center justify-center bg-white rounded-2xl w-15 h-15 shadow-md hover:bg-gray-400 transition ease-in-out">
+                                        <LuSettings size={50} className=""/>
+                                    </a>
+                                    <p className="text-sm">Configurações</p>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section className="order-2 sm:order-1 md:order-3">
                         <div className="flex items-center gap-2">
                             <LuTrendingUp size={40}/>
                             <h1 className="font-bold text-2xl">Eventos em destaque</h1>
@@ -96,94 +157,86 @@ export default function Home() {
                         </div>
                     </section>
 
-                    <section className="flex flex-col gap-5">
-                        <div className="flex items-center gap-2">
-                            <LuEarth size={40}/>
-                            <h1 className="font-bold text-2xl">Atalhos</h1>
-                        </div>
-
-                        <div className="">
-                            <ul className="flex items-middle justify-between">
-                                <li className="flex flex-col items-center gap-2">
-                                    <a href="" className="flex flex-col items-center justify-center  bg-white rounded-2xl w-15 h-15 shadow-md hover:bg-gray-400 transition ease-in-out">
-                                        <LuPlus size={50}/>
-                                    </a>
-                                    <p className="text-sm">Criar evento</p>
-                                </li>
-
-                                <li className="flex flex-col items-center gap-2">
-                                    <a href="" className="flex flex-col items-center justify-center bg-white rounded-2xl w-15 h-15 shadow-md hover:bg-gray-400 transition ease-in-out">
-                                        <LuCalendarFold size={50} className=""/>
-                                    </a>
-                                    <p className="text-sm">Próximos</p>
-                                </li>
-
-                                <li className="flex flex-col items-center gap-2">
-                                    <a href="" className="flex flex-col items-center justify-center bg-white rounded-2xl w-15 h-15 shadow-md hover:bg-gray-400 transition ease-in-out">
-                                        <LuStar size={50} fill="black" className=""/>
-                                    </a>
-                                    <p className="text-sm">Dicas</p>
-                                </li>
-                                
-                                <li className="flex flex-col items-center gap-2">
-                                    <a href="" className="flex flex-col items-center justify-center bg-white rounded-2xl w-15 h-15 shadow-md hover:bg-gray-400 transition ease-in-out">
-                                        <LuSettings size={50} className=""/>
-                                    </a>
-                                    <p className="text-sm">Configurações</p>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </section>
-
-                    <section className="flex flex-col">
+                    <section className="flex flex-col order-4 sm:order-3 md:order-3">
                         <div className="flex items-center gap-2">
                             <LuTrendingUp size={40}/>
                             <h1 className="font-bold text-2xl">Meus Eventos</h1>
                         </div>
-                        <div className="bg-white p-3 rounded-2xl flex flex-col">
-                            <div className="flex bg-[#F6F6F6] rounded-2xl p-2">
-                                <div className="flex flex-col">
-                                    <h1 className="font-bold">Festa em casa</h1>
-                                    <p>01 de setembro de 2025</p>
+                        <div className="bg-white p-3 rounded-2xl flex flex-col w-full overflow-y-auto">
+                            <div className="flex flex-col rounded-2xl p-2 h-50 gap-5">
+                                <div className="flex bg-[#F6F6F6] w-full h-1/3 justify-between p-2 sm:p-10 items-center rounded-2xl shadow-md">
+                                    <div className="flex flex-col">
+                                        <h1 className="font-bold">Festa em casa</h1>
+                                        <p className="text-sm sm:text-base">01 de setembro de 2025</p>
+                                    </div>
+
+                                    <ul className="flex items-middle justify-center gap-5">
+                                        <li className="flex-col items-center gap-2 hidden sm:flex">
+                                            <a href="" className="flex flex-col items-center justify-center bg-white rounded-full shadow-md hover:bg-gray-400 transition ease-in-out w-10">
+                                                <LuCircleX color="red" size={30}/>
+                                            </a>
+                                            <p className="text-sm font-bold">Desconfirmar</p>
+                                        </li>
+
+                                        <li className="flex-col items-center gap-2 hidden sm:flex">
+                                            <a href="" className="flex flex-col items-center justify-center  bg-white rounded-full shadow-md hover:bg-gray-400 transition ease-in-out w-10">
+                                                <LuMessageSquare color="blue" size={30} className=""/>
+                                            </a>
+                                            <p className="text-sm font-bold">Chat</p>
+                                        </li>
+
+                                        <li className="flex flex-col items-center gap-2">
+                                            <a href="" className="flex flex-col items-center justify-center  bg-white rounded-full shadow-md hover:bg-gray-400 transition ease-in-out w-10">
+                                                <LuInfo size={30} color="lightblue" className=""/>
+                                            </a>
+                                            <p className="text-sm font-bold">Informações</p>
+                                        </li>
+                                    </ul>
                                 </div>
 
-                            <ul className="flex items-middle justify-between">
-                                <li className="flex flex-col items-center gap-2">
-                                    <a href="" className="flex flex-col items-center justify-center  bg-white rounded-full shadow-md hover:bg-gray-400 transition ease-in-out">
-                                        <LuPlus size={30}/>
-                                    </a>
-                                    <p className="text-sm">Desconfirmar</p>
-                                </li>
+                                <div className="flex bg-[#F6F6F6] w-full h-1/3 justify-between p-2 sm:p-10 items-center rounded-2xl shadow-md">
+                                    <div className="flex flex-col">
+                                        <h1 className="font-bold">Festa em casa</h1>
+                                        <p className="text-sm sm:text-base">01 de setembro de 2025</p>
+                                    </div>
 
-                                <li className="flex flex-col items-center gap-2">
-                                    <a href="" className="flex flex-col items-center justify-center  bg-white rounded-full shadow-md hover:bg-gray-400 transition ease-in-out">
-                                        <LuCalendarFold size={30} className=""/>
-                                    </a>
-                                    <p className="text-sm">Chat</p>
-                                </li>
+                                    <ul className="flex items-middle justify-center gap-5">
+                                        <li className="flex-col items-center gap-2 hidden sm:flex">
+                                            <a href="" className="flex flex-col items-center justify-center bg-white rounded-full shadow-md hover:bg-gray-400 transition ease-in-out w-10">
+                                                <LuCircleX color="red" size={30}/>
+                                            </a>
+                                            <p className="text-sm font-bold">Desconfirmar</p>
+                                        </li>
 
-                                <li className="flex flex-col items-center gap-2">
-                                    <a href="" className="flex flex-col items-center justify-center  bg-white rounded-full shadow-md hover:bg-gray-400 transition ease-in-out">
-                                        <LuStar size={30} fill="black" className=""/>
-                                    </a>
-                                    <p className="text-sm">Informações</p>
-                                </li>
-                            </ul>
+                                        <li className="flex-col items-center gap-2 hidden sm:flex">
+                                            <a href="" className="flex flex-col items-center justify-center  bg-white rounded-full shadow-md hover:bg-gray-400 transition ease-in-out w-10">
+                                                <LuMessageSquare color="blue" size={30} className=""/>
+                                            </a>
+                                            <p className="text-sm font-bold">Chat</p>
+                                        </li>
+
+                                        <li className="flex flex-col items-center gap-2">
+                                            <a href="" className="flex flex-col items-center justify-center  bg-white rounded-full shadow-md hover:bg-gray-400 transition ease-in-out w-10">
+                                                <LuInfo size={30} color="lightblue" className=""/>
+                                            </a>
+                                            <p className="text-sm font-bold">Informações</p>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </section>
 
 
 
-                    <section>
+                    <section className="md:order-5 sm:order-4">
                         <Button/>
                     </section>
                 </div>
 
             </main>
 
-            <footer className="h-32 flex justify-center w-full max-h-fit">
+            <footer className="h-32 flex justify-center w-full max-h-fit sm:hidden">
                 <ul 
                 className="flex justify-around w-full font-bold border-t-2 border-b-2 border-gray-200">
                     <li className="flex-1">
