@@ -1,19 +1,18 @@
 import { useAuth } from "../hooks/useAuth";
 import { Navigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
-import logo from '../imgs/logo_nbg.png'
+import Header from '../components/layout/Header'
+import { eventService } from '../services/eventService';
 import profile from '../imgs/profile.jpg'
 import Loading from "../components/ui/Loading";
-import Button from "../components/ui/Button";
+import Modal from "../components/ui/Modal";
+import MobileFooter from "../components/layout/MobileFooter";
+import MyEvents from "../components/layout/MyEvents";
 
 import { 
-    LuMoon, 
-    LuSearch, 
     LuCalendarDays, 
-    LuBell,
-    LuHouse,
     LuHeart,
-    LuCircleUserRound,
     LuTrendingUp,
     LuMapPin,
     LuShare2,
@@ -21,11 +20,32 @@ import {
     LuCalendarFold,
     LuStar,
     LuSettings,
-    LuPlus
+    LuPlus,
 } from "react-icons/lu";
 
 export default function Home() {
     const { user, loading } = useAuth();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [userEvents, setUserEvents] = useState([]);
+    const [loadingEvents, setLoadingEvents] = useState(true);
+
+    useEffect(() => {
+        const fetchUserEvents = async () => {
+            if (!user) return;
+            setLoadingEvents(true);
+            try {
+                const events = await eventService.getAllEvents();
+                const filteredEvents = events.filter(event => event.createdBy === user.uid);
+                setUserEvents(filteredEvents);
+            } catch (error) {
+                console.error('Erro ao buscar eventos do usuário:', error);
+            } finally {
+                setLoadingEvents(false);
+            }
+        };
+
+        fetchUserEvents();
+    }, [user]);
 
 
     if (loading) return <Loading/>;
@@ -33,31 +53,71 @@ export default function Home() {
 
     return (
         <div className="flex flex-col w-full min-h-screen overflow-x-hidden">
-            <nav className="flex items-center w-full border-b-6 border-[#2E8FE0] h-25 justify-between px-4">
-                <img src={logo} width={75} alt="logo eventup" className="" />
-                <div className="relative flex items-center">
-                    <LuSearch className="absolute left-3"/>
-                    <input 
-                    type="search" 
-                    placeholder= 'Buscar eventos...'
-                    className="pl-8 border border-[#2E8FE0] bg-[#2E8FE0]/7 rounded-full w-60 sm:w-80 h-10 placeholder:text-black focus:bg-[#2E8FE0]/10 focus:border-[#2E8FE0] focus:outline-none transition ease-in-out duration-300"/>
-                </div>
-                <button className="hover:cursor-pointer">
-                    <LuMoon size={30}/>
-                </button>
-            </nav>
+            <Header />
 
             <main className="flex-grow bg-[#2E8FE0]/5 scroll-auto">
-                <div className="grid md:grid-cols-2 gap-8 m-10 grid-cols-1">
+                <div className="grid md:grid-cols-2 gap-8 m-10 grid-cols-1 order-0">
                     <section className="flex flex-col">
                         <div className="bg-[#2E8FE0]/17 rounded-3xl p-10 hidden sm:block">
-                            <button className="bg-[#2E8FE0]/53 w-full rounded-4xl p-5 text-3xl font-bold text-white">Criar um evento</button>
+                            <button 
+                                onClick={() => setIsModalOpen(true)}
+                                className="bg-[#2E8FE0]/53 w-full rounded-4xl p-5 text-3xl font-bold text-white hover:bg-[#2E8FE0]/70 transition-colors">
+                                Criar um evento
+                            </button>
                         </div>
+                    </section>
+
+                    <section className="flex flex-col gap-5">
+                        <div className="flex items-center gap-2">
+                            <LuEarth size={40}/>
+                            <h1 className="font-bold text-2xl">Atalhos</h1>
+                        </div>
+
+                        <div className="">
+                            <ul className="flex items-middle justify-between">
+                                <li className="flex flex-col items-center gap-2">
+                                    <button 
+                                        onClick={() => setIsModalOpen(true)}
+                                        className="flex flex-col items-center justify-center bg-white rounded-2xl w-15 h-15 shadow-md hover:bg-gray-400 transition ease-in-out">
+                                        <LuPlus size={50}/>
+                                    </button>
+                                    <p className="text-sm">Criar evento</p>
+                                </li>
+
+                                <li className="flex flex-col items-center gap-2">
+                                    <a href="" className="flex flex-col items-center justify-center bg-white rounded-2xl w-15 h-15 shadow-md hover:bg-gray-400 transition ease-in-out">
+                                        <LuCalendarFold size={50} className=""/>
+                                    </a>
+                                    <p className="text-sm">Próximos</p>
+                                </li>
+
+                                <li className="flex flex-col items-center gap-2">
+                                    <a href="" className="flex flex-col items-center justify-center bg-white rounded-2xl w-15 h-15 shadow-md hover:bg-gray-400 transition ease-in-out">
+                                        <LuStar size={50} fill="black" className=""/>
+                                    </a>
+                                    <p className="text-sm">Dicas</p>
+                                </li>
+                                
+                                <li className="flex flex-col items-center gap-2">
+                                    <a href="" className="flex flex-col items-center justify-center bg-white rounded-2xl w-15 h-15 shadow-md hover:bg-gray-400 transition ease-in-out">
+                                        <LuSettings size={50} className=""/>
+                                    </a>
+                                    <p className="text-sm">Configurações</p>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section>
                         <div className="flex items-center gap-2">
                             <LuTrendingUp size={40}/>
                             <h1 className="font-bold text-2xl">Eventos em destaque</h1>
                         </div>
-                        <div className="bg-white p-5 rounded-2xl flex flex-col">
+                        <div className="relative bg-white p-5 rounded-2xl flex flex-col">
+                            <div className="absolute -top-5 right-0 bg-[#E0442f] text-black text-l font-bold px-3 py-1 rounded-md shadow">
+                                🔥 EM ALTA!
+                            </div>
                             <div className="flex justify-between items-start">
                                 <div className="">
                                     <h1 className="font-bold text-[1.5rem] wrap-anywhere">Festival de Música</h1>
@@ -96,142 +156,22 @@ export default function Home() {
                         </div>
                     </section>
 
-                    <section className="flex flex-col gap-5">
-                        <div className="flex items-center gap-2">
-                            <LuEarth size={40}/>
-                            <h1 className="font-bold text-2xl">Atalhos</h1>
-                        </div>
-
-                        <div className="">
-                            <ul className="flex items-middle justify-between">
-                                <li className="flex flex-col items-center gap-2">
-                                    <a href="" className="flex flex-col items-center justify-center  bg-white rounded-2xl w-15 h-15 shadow-md hover:bg-gray-400 transition ease-in-out">
-                                        <LuPlus size={50}/>
-                                    </a>
-                                    <p className="text-sm">Criar evento</p>
-                                </li>
-
-                                <li className="flex flex-col items-center gap-2">
-                                    <a href="" className="flex flex-col items-center justify-center bg-white rounded-2xl w-15 h-15 shadow-md hover:bg-gray-400 transition ease-in-out">
-                                        <LuCalendarFold size={50} className=""/>
-                                    </a>
-                                    <p className="text-sm">Próximos</p>
-                                </li>
-
-                                <li className="flex flex-col items-center gap-2">
-                                    <a href="" className="flex flex-col items-center justify-center bg-white rounded-2xl w-15 h-15 shadow-md hover:bg-gray-400 transition ease-in-out">
-                                        <LuStar size={50} fill="black" className=""/>
-                                    </a>
-                                    <p className="text-sm">Dicas</p>
-                                </li>
-                                
-                                <li className="flex flex-col items-center gap-2">
-                                    <a href="" className="flex flex-col items-center justify-center bg-white rounded-2xl w-15 h-15 shadow-md hover:bg-gray-400 transition ease-in-out">
-                                        <LuSettings size={50} className=""/>
-                                    </a>
-                                    <p className="text-sm">Configurações</p>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </section>
-
-                    <section className="flex flex-col">
-                        <div className="flex items-center gap-2">
-                            <LuTrendingUp size={40}/>
-                            <h1 className="font-bold text-2xl">Meus Eventos</h1>
-                        </div>
-                        <div className="bg-white p-3 rounded-2xl flex flex-col">
-                            <div className="flex bg-[#F6F6F6] rounded-2xl p-2">
-                                <div className="flex flex-col">
-                                    <h1 className="font-bold">Festa em casa</h1>
-                                    <p>01 de setembro de 2025</p>
-                                </div>
-
-                            <ul className="flex items-middle justify-between">
-                                <li className="flex flex-col items-center gap-2">
-                                    <a href="" className="flex flex-col items-center justify-center  bg-white rounded-full shadow-md hover:bg-gray-400 transition ease-in-out">
-                                        <LuPlus size={30}/>
-                                    </a>
-                                    <p className="text-sm">Desconfirmar</p>
-                                </li>
-
-                                <li className="flex flex-col items-center gap-2">
-                                    <a href="" className="flex flex-col items-center justify-center  bg-white rounded-full shadow-md hover:bg-gray-400 transition ease-in-out">
-                                        <LuCalendarFold size={30} className=""/>
-                                    </a>
-                                    <p className="text-sm">Chat</p>
-                                </li>
-
-                                <li className="flex flex-col items-center gap-2">
-                                    <a href="" className="flex flex-col items-center justify-center  bg-white rounded-full shadow-md hover:bg-gray-400 transition ease-in-out">
-                                        <LuStar size={30} fill="black" className=""/>
-                                    </a>
-                                    <p className="text-sm">Informações</p>
-                                </li>
-                            </ul>
-                            </div>
-                        </div>
-                    </section>
-
-
-
-                    <section>
-                        <Button/>
-                    </section>
+                    <MyEvents 
+                        userEvents={userEvents}
+                        loadingEvents={loadingEvents}
+                        setUserEvents={setUserEvents}
+                    />
                 </div>
 
             </main>
 
-            <footer className="h-32 flex justify-center w-full max-h-fit">
-                <ul 
-                className="flex justify-around w-full font-bold border-t-2 border-b-2 border-gray-200">
-                    <li className="flex-1">
-                        <a 
-                        className="flex justify-center flex-col align-middle items-center h-full py-3 px-2 bg-[#2E8FE0]/10 text-[#2E8FE0] rounded-t-lg transition-all duration-200 hover:bg-[#2E8FE0]/20 active:bg-[#2E8FE0]/30" 
-                        href="">
-                                <LuCalendarDays size={35} className="mb-1"/>
-                                <p className="text-sm">Eventos</p>
-                        </a>
-                    </li>
-                    
-                    <li className="flex-1">
-                        <a 
-                        className="flex justify-center flex-col align-middle items-center h-full py-3 px-2 text-gray-600 transition-all duration-200 hover:bg-[#2E8FE0]/10 hover:text-[#2E8FE0] active:bg-[#2E8FE0]/20" 
-                        href="">
-                                <LuBell size={35} className="mb-1"/>
-                                <p className="text-sm">Notificações</p>
-                        </a>
-                    </li>
-                    
-                    <li className="flex-1">
-                        <a 
-                        className="flex justify-center flex-col align-middle items-center h-full py-3 px-2 text-gray-600 transition-all duration-200 hover:bg-[#2E8FE0]/10 hover:text-[#2E8FE0] active:bg-[#2E8FE0]/20" 
-                        href="">
-                                <LuHouse size={35} className="mb-1"/>
-                                <p className="text-sm">Início</p>
-                        </a>
-                    </li>
-                    
-                    <li className="flex-1">
-                        <a 
-                        className="flex justify-center flex-col align-middle items-center h-full py-3 px-2 text-gray-600 transition-all duration-200 hover:bg-[#2E8FE0]/10 hover:text-[#2E8FE0] active:bg-[#2E8FE0]/20" 
-                        href="">
-                                <LuHeart size={35} className="mb-1"/>
-                                <p className="text-sm">Favoritos</p>
-                        </a>
-                    </li>
-                    
-                    <li className="flex-1">
-                        <a 
-                        className="flex justify-center flex-col align-middle items-center h-full py-3 px-2 text-gray-600 transition-all duration-200 hover:bg-[#2E8FE0]/10 hover:text-[#2E8FE0] active:bg-[#2E8FE0]/20" 
-                        href="">
-                                <LuCircleUserRound size={35} className="mb-1"/>
-                                <p className="text-sm">Perfil</p>
-                        </a>
-                    </li>
-                </ul>
-            </footer>
+            <MobileFooter />
+
+            <Modal 
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                user={user}
+            />
             </div>
     );
 }
