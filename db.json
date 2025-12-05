@@ -3,15 +3,16 @@
     {
       "id": "1",
       "title": "Festival de Música",
-      "date": "2025-08-29",
+      "date": "2026-08-29",
       "time": "19:00",
       "location": "Instituto Infnet",
       "description": "Festival de música ao vivo com várias bandas locais",
       "maxParticipants": 100,
       "createdBy": "user123",
-      "confirmed": 45,
+      "confirmed": 1,
       "status": "active",
-      "isTrending": false
+      "isTrending": true,
+      "participants": ["testuser"]
     },
     {
       "id": "9610",
@@ -23,12 +24,13 @@
       "maxParticipants": 2,
       "createdBy": "9A0MPFHHCkMCCCteDRDoFfvFAaE3",
       "confirmed": 0,
-      "status": "active"
+      "status": "active",
+      "participants": []
     },
     {
       "id": "b7c6",
       "title": "teste",
-      "date": "2025-11-17",
+      "date": "2025-12-30",
       "time": "20:30",
       "location": "teste",
       "description": "teste",
