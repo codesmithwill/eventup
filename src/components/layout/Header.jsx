@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import logo from "../../imgs/logo_nbg.png";
-import { LuMoon } from "react-icons/lu";
+import { LuBell, LuHeart, LuMoon } from "react-icons/lu";
 import SearchEvents from "../ui/SearchEvents";
 import { useAuth } from "../../hooks/useAuth";
 import profileFallback from "../../imgs/profile.jpg";
@@ -45,6 +45,10 @@ export default function Header() {
       <div className="flex items-center gap-3 relative" ref={menuRef}>
         <button className="hover:cursor-pointer" aria-label="Alternar tema">
           <LuMoon size={30} />
+        </button>
+
+        <button className="hover:cursor-pointer" aria-label="Alternar tema">
+          <LuBell size={30} />
         </button>
 
         <button

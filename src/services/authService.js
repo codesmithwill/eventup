@@ -112,10 +112,60 @@ export const mockAuth = {
     return currentUser;
   },
 
+  _listeners: [],
   onAuthStateChanged: (callback) => {
     const user = mockAuth.getCurrentUser();
-    callback(user);
+    try {
+      callback(user);
+    } catch (e) {
+      console.error("Erro no callback de onAuthStateChanged:", e);
+    }
 
-    return () => {};
+    mockAuth._listeners.push(callback);
+
+    return () => {
+      mockAuth._listeners = mockAuth._listeners.filter((l) => l !== callback);
+    };
+  },
+
+  getFullUserData: async (uid) => {
+    const users = await getUsers();
+    const u = users.find((usr) => String(usr.id) === String(uid));
+    return u || null;
+  },
+
+  toggleFavorite: async (uid, eventId) => {
+    const users = await getUsers();
+    const idx = users.findIndex((u) => String(u.id) === String(uid));
+    if (idx === -1) throw new Error("Usuário não encontrado");
+
+    const user = users[idx];
+    user.favorites = Array.isArray(user.favorites) ? [...user.favorites] : [];
+
+    const exists = user.favorites.includes(eventId);
+    if (exists) {
+      user.favorites = user.favorites.filter((id) => id !== eventId);
+    } else {
+      user.favorites.push(eventId);
+    }
+
+    await saveUsers(users);
+
+    const stored = mockAuth.getCurrentUser();
+    if (stored && String(stored.uid) === String(uid)) {
+      const updated = { ...stored, favorites: user.favorites };
+      currentUser = updated;
+      localStorage.setItem("currentUser", JSON.stringify(updated));
+    }
+
+    mockAuth._listeners.forEach((cb) => {
+      try {
+        cb(mockAuth.getCurrentUser());
+      } catch (e) {
+        console.error("Erro ao notificar listener:", e);
+      }
+    });
+
+    return user.favorites;
   },
 };

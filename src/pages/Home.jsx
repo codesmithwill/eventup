@@ -24,6 +24,8 @@ import {
   LuSettings,
   LuPlus,
 } from "react-icons/lu";
+import { BsHeart, BsHeartFill } from "react-icons/bs";
+import { mockAuth } from "../services/authService";
 
 export default function Home() {
   const { user, loading } = useAuth();
@@ -204,9 +206,9 @@ export default function Home() {
                 </li>
 
                 <li className="flex flex-col items-center gap-2">
-                  <Button variant="criarEventoSM" label="Favoritos">
-                    <LuStar fill="black" size={50} />
-                  </Button>
+                    <Button onClick={() => navigate("/favorites")} variant="criarEventoSM" label="Favoritos">
+                      <LuStar fill="black" size={50} />
+                    </Button>
                 </li>
 
                 <li className="flex flex-col items-center gap-2">
@@ -307,10 +309,35 @@ export default function Home() {
                       Ver detalhes
                     </button>
                     <div className="flex gap-3">
-                      <LuHeart
-                        size={25}
-                        className="cursor-pointer hover:text-red-500 transition"
-                      />
+                      {user?.favorites && user.favorites.includes(featuredEvent.id) ? (
+                        <BsHeartFill
+                          size={22}
+                          className="cursor-pointer text-red-500 transition"
+                          onClick={async (e) => {
+                            e.stopPropagation();
+                            try {
+                              await mockAuth.toggleFavorite(user.uid, featuredEvent.id);
+                            } catch (err) {
+                              console.error("Erro ao favoritar:", err);
+                              alert("Erro ao favoritar. Tente novamente.");
+                            }
+                          }}
+                        />
+                      ) : (
+                        <BsHeart
+                          size={22}
+                          className="cursor-pointer hover:text-red-500 transition"
+                          onClick={async (e) => {
+                            e.stopPropagation();
+                            try {
+                              await mockAuth.toggleFavorite(user.uid, featuredEvent.id);
+                            } catch (err) {
+                              console.error("Erro ao favoritar:", err);
+                              alert("Erro ao favoritar. Tente novamente.");
+                            }
+                          }}
+                        />
+                      )}
                       <button
                         onClick={handleShareEvent}
                         className="flex items-center gap-1 hover:text-blue-500 transition cursor-pointer"

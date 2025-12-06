@@ -33,10 +33,12 @@ export default function Modal({ isOpen, onClose, user }) {
     try {
       await eventService.createEvent({
         ...formData,
+        maxParticipants: parseInt(formData.maxParticipants),
         createdBy: user?.uid,
         confirmed: 0,
         status: "active",
-        maxParticipants: parseInt(formData.maxParticipants),
+        isTrending: false,
+        participants: [],
       });
       setFormData({
         title: "",

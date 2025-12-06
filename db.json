@@ -9,35 +9,38 @@
       "description": "Festival de música ao vivo com várias bandas locais",
       "maxParticipants": 100,
       "createdBy": "user123",
-      "confirmed": 1,
-      "status": "active",
-      "isTrending": true,
-      "participants": ["testuser"]
-    },
-    {
-      "id": "9610",
-      "title": "meu evento",
-      "date": "2025-01-01",
-      "time": "19:30",
-      "location": "teste",
-      "description": "teste",
-      "maxParticipants": 2,
-      "createdBy": "9A0MPFHHCkMCCCteDRDoFfvFAaE3",
       "confirmed": 0,
       "status": "active",
+      "isTrending": true,
       "participants": []
     },
     {
-      "id": "b7c6",
+      "id": "e8a8",
+      "title": "Copacabana - Ano Novo",
+      "date": "2026-01-01",
+      "time": "00:00",
+      "location": "Copacabana",
+      "description": "Venha prestigiar o final de ano em copa cabana!",
+      "maxParticipants": 1000,
+      "createdBy": "1",
+      "confirmed": 0,
+      "status": "active",
+      "isTrending": false,
+      "participants": []
+    },
+    {
+      "id": "ef83",
       "title": "teste",
-      "date": "2025-12-30",
-      "time": "20:30",
+      "date": "2025-12-06",
+      "time": "00:00",
       "location": "teste",
       "description": "teste",
       "maxParticipants": 2,
-      "createdBy": "9A0MPFHHCkMCCCteDRDoFfvFAaE3",
+      "createdBy": "1",
       "confirmed": 0,
-      "status": "active"
+      "status": "active",
+      "isTrending": false,
+      "participants": []
     }
   ]
 }

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import { mockAuth } from "../services/authService";
+import { BsHeart, BsHeartFill } from "react-icons/bs";
 import { eventService } from "../services/eventService";
 import Header from "../components/layout/Header";
 import Loading from "../components/ui/Loading";
@@ -15,7 +17,7 @@ import {
 
 export default function UpcomingEvents() {
   const navigate = useNavigate();
-  const { loading: authLoading } = useAuth();
+  const { loading: authLoading, user } = useAuth();
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -202,6 +204,30 @@ export default function UpcomingEvents() {
                             🔥 EM ALTA
                           </div>
                         )}
+                        <button
+                          onClick={async (e) => {
+                            e.stopPropagation();
+                            if (!user) {
+                              alert("Você precisa estar logado para favoritar eventos.");
+                              return;
+                            }
+
+                            try {
+                              await mockAuth.toggleFavorite(user.uid, event.id);
+                            } catch (err) {
+                              console.error("Erro ao atualizar favoritos:", err);
+                              alert("Erro ao favoritar/desfavoritar evento.");
+                            }
+                          }}
+                          className="ml-1 p-1 rounded-md bg-white/70 hover:bg-white"
+                          title={user?.favorites && user.favorites.includes(event.id) ? "Remover dos favoritos" : "Adicionar aos favoritos"}
+                        >
+                          {user?.favorites && user.favorites.includes(event.id) ? (
+                            <BsHeartFill className="text-red-500" size={18} />
+                          ) : (
+                            <BsHeart className="text-gray-600" size={18} />
+                          )}
+                        </button>
                         {daysUntil === 0 && (
                           <div className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow">
                             HOJE
