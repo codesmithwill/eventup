@@ -13,14 +13,8 @@
       "username": "demo",
       "email": "demo@example.com",
       "password": "123456",
-      "birthDate": "1995-05-15"
-    },
-    {
-      "id": "3",
-      "username": "rogerio_espindola1",
-      "email": "roger@roger.com",
-      "password": "flamengo07",
-      "birthDate": "2001-01-01"
+      "birthDate": "1995-05-15",
+      "favorites": []
     }
   ]
 }

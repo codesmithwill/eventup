@@ -1,4 +1,4 @@
-/*import { useState } from "react";
+import { useState } from "react";
 import { mockAuth } from "../services/authService";
 import logo from "../imgs/logo_nbg.png";
 import Footer from "../components/layout/Footer";
@@ -37,21 +37,18 @@ export default function Login() {
   };
 
   return (
-    <div className="flex w-full min-h-screen">
+    <div className="login-container">
       <HeroSection />
 
-      <div className="flex flex-col justify-center items-center bg-gradient-to-t from-slate-50 via-[#88bbe4] to-slate-50 w-full gap-20 lg:bg-none lg:bg-white px-6">
-        <img src={logo} alt="Logo EventUp" width={250} height={250} />
+      <div className="login-form-wrapper">
+        <img src={logo} alt="Logo EventUp" className="login-logo" />
 
-        <div className="flex justify-center w-full">
-          <form
-            onSubmit={handleSubmit}
-            className="flex flex-col gap-7 w-full max-w-md"
-          >
-            <div>
+        <div className="login-form-container">
+          <form onSubmit={handleSubmit} className="login-form">
+            <div className="form-input-group">
               <label htmlFor="email"></label>
               <input
-                className="border border-[#2E8FE0] w-full rounded-4xl p-2 placeholder-black focus:outline-none"
+                className="form-input"
                 type="text"
                 id="email"
                 value={email}
@@ -61,13 +58,11 @@ export default function Login() {
               />
             </div>
 
-            <div className="relative">
+            <div className="form-password-wrapper">
               <label htmlFor="password"></label>
               <input
-                className={`border w-full rounded-4xl p-2 placeholder-black focus:outline-none pr-12 ${
-                  password.length > 0 && password.length < 6
-                    ? "border-red-500"
-                    : "border-[#2E8FE0]"
+                className={`form-password ${
+                  password.length > 0 && password.length < 6 ? "invalid" : ""
                 }`}
                 type={showPassword ? "text" : "password"}
                 id="password"
@@ -78,7 +73,7 @@ export default function Login() {
               />
               <button
                 type="button"
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#2E8FE0] hover:text-[#1a5a9e] focus:outline-none"
+                className="password-toggle-btn"
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? (
@@ -89,25 +84,25 @@ export default function Login() {
               </button>
             </div>
 
-            <div className="flex justify-around italic">
-              <a className="hover:font-bold" href="">
-                <p className="">Esqueceu sua Senha?</p>
+            <div className="form-links">
+              <a className="form-link" href="">
+                <p>Esqueceu sua Senha?</p>
               </a>
 
-              <Link className="hover:font-bold" to="/register">
+              <Link className="form-link" to="/register">
                 Cadastrar-se
               </Link>
             </div>
 
-            <div className="flex flex-col items-center gap-2">
+            <div className="form-submit-group">
               <button
                 type="submit"
-                className="border border-[#2E8FE0] bg-[#2e90e0] text-white p-3 font-bold text-2xl rounded-4xl w-3xs cursor-pointer hover:bg-[#2e90e09c]"
+                className="form-submit-btn"
                 disabled={loading}
               >
                 {loading ? "Entrando..." : "Entrar"}
               </button>
-              {error && <span className="text-red-600 font-bold">{error}</span>}
+              {error && <span className="form-error">{error}</span>}
             </div>
           </form>
         </div>
@@ -117,4 +112,3 @@ export default function Login() {
     </div>
   );
 }
-*/

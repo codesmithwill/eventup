@@ -14,7 +14,6 @@ import MyEvents from "../components/layout/MyEvents";
 
 import {
   LuCalendarDays,
-  LuHeart,
   LuTrendingUp,
   LuMapPin,
   LuShare2,

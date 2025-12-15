@@ -1,69 +1,161 @@
-@import "tailwindcss";
-
-/* :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
+.login-container {
   display: flex;
-  place-items: center;
-  min-width: 320px;
+  width: 100%;
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.login-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to top, #f1f5f9, #88bbe4, #f1f5f9);
+  width: 100%;
+  gap: 80px;
+  padding: 0 24px;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+@media (min-width: 1024px) {
+  .login-form-wrapper {
+    background: none;
+    background-color: white;
+  }
+}
+
+.login-logo {
+  width: 250px;
+  height: 250px;
+}
+
+.login-form-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  width: 100%;
+  max-width: 448px;
+}
+
+.form-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.form-input {
+  border: 1px solid #2e8fe0;
+  width: 100%;
+  border-radius: 28px;
+  padding: 8px;
+  color: black;
+}
+
+.form-input::placeholder {
+  color: black;
+}
+
+.form-input:focus {
+  outline: none;
+}
+
+.form-password-wrapper {
+  position: relative;
+}
+
+.form-password {
+  border: 1px solid #2e8fe0;
+  width: 100%;
+  border-radius: 28px;
+  padding: 8px;
+  padding-right: 48px;
+  color: black;
+}
+
+.form-password::placeholder {
+  color: black;
+}
+
+.form-password:focus {
+  outline: none;
+}
+
+.form-password.invalid {
+  border-color: #ef4444;
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #2e8fe0;
+  background: none;
+  border: none;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-} */
+.password-toggle-btn:hover {
+  color: #1a5a9e;
+}
+
+.password-toggle-btn:focus {
+  outline: none;
+}
+
+.form-links {
+  display: flex;
+  justify-content: space-around;
+  font-style: italic;
+}
+
+.form-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.form-link:hover {
+  font-weight: bold;
+}
+
+.form-submit-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-submit-btn {
+  border: 1px solid #2e8fe0;
+  background-color: #2e90e0;
+  color: white;
+  padding: 12px;
+  font-weight: bold;
+  font-size: 1.5rem;
+  border-radius: 28px;
+  width: fit-content;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.form-submit-btn:hover:not(:disabled) {
+  background-color: rgba(46, 144, 224, 0.61);
+}
+
+.form-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.form-error {
+  color: #dc2626;
+  font-weight: bold;
+  font-size: 0.875rem;
+}
